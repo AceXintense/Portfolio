@@ -1,5 +1,41 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900');
 
+@font-face {
+    font-family: 'monoidbold';
+    src: url('../fonts/monoid-bold-webfont.woff2') format('woff2'),
+    url('../fonts/monoid-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'monoiditalic';
+    src: url('../fonts/monoid-italic-webfont.woff2') format('woff2'),
+    url('../fonts/monoid-italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'monoidregular';
+    src: url('../fonts/monoid-regular-webfont.woff2') format('woff2'),
+    url('../fonts/monoid-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'monoidretina';
+    src: url('../fonts/monoid-retina-webfont.woff2') format('woff2'),
+    url('../fonts/monoid-retina-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 * {
     font-family: 'Raleway', sans-serif;
 }
