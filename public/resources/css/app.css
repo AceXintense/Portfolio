@@ -7,16 +7,33 @@
 body {
     margin: 0;
     margin-top: 100px;
+    background-image: url("../images/background.svg");
+    background-size: 100vw;
 }
 
-button {
-    background-color: transparent;
+button.filter {
+    background-color: white;
     border-radius: 5px;
     padding: 5px 20px;
     border: 1px solid rgb(50, 50, 50);
 }
 
-button:active {
+button.filter:nth-child(1n+3) {
+    margin-left: 10px;
+}
+
+button:hover.filter {
+    background-color: rgb(50, 150, 250);
+    border-color: rgb(50, 150, 250);
+    color: white;
+}
+
+button:active.filter {
+    background-color: rgb(50, 50, 50);
+    color: white;
+}
+
+button.selected {
     background-color: rgb(50, 50, 50);
     color: white;
 }
@@ -53,6 +70,10 @@ img {
     float: right;
     margin: 5px 15px;
     color: rgb(50, 50, 50);
+}
+
+.profile-picture {
+    float: right;
 }
 
 .content {
@@ -92,10 +113,22 @@ img {
     border: 1px solid rgb(50, 50, 50);
 }
 
+.card .language {
+    font-size: 48px;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    opacity: .2;
+}
+
 .card h1 {
     font-size: 21px;
 }
 
 .footer {
 
+}
+
+#copyright {
+    float: right;
 }

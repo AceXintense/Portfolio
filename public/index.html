@@ -46,7 +46,7 @@
                                 </p>
                             </div>
                             <div class="col-sm-4">
-                                <img src="{{user.avatar_url}}" alt="Me">
+                                <img src="{{user.avatar_url}}" class="profile-picture" alt="Me">
                             </div>
                         </div>
                     </div>
@@ -70,14 +70,13 @@
 
                     <div class="group">
                         <h1>Projects</h1>
-                        <button ng-click="getRepository(null)">All</button>
-                        <button ng-click="getRepository('php')">PHP</button>
-                        <button ng-click="getRepository('python')">Python</button>
+                        <button ng-repeat="filter in filters" ng-click="getRepository(filter.searchName) + setSelectedFilter(filter.title)" ng-class="selectedFilter == filter.title ? 'selected' : ''" class="filter">{{filter.title}}</button>
                         <div class="projects-group">
 
                             <div class="row">
-                                <div class="spacer col-md-4" ng-repeat="project in projects">
+                                <div class="spacer col-md-4 col-sm-6" ng-repeat="project in projects">
                                     <div class="card">
+                                        <p class="language">{{project.language}}</p>
                                         <h1>{{project.name}}</h1>
                                         <p>{{project.description}}</p>
                                         <a href="{{project.html_url}}">Github</a>
@@ -92,7 +91,14 @@
 
             <div class="footer">
                 <div class="container">
-                    <p>Footer</p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                                <p>Designed by Sam Grew (<a href="{{githubURL}}">AceXintense</a>)</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p id="copyright">Copyright {{copyrightYear}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
