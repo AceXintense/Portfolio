@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900');
+
+* {
+    font-family: 'Raleway', sans-serif;
+}
+
+body {
+    margin: 0;
+    margin-top: 100px;
+}
+
+button {
+    background-color: transparent;
+    border-radius: 5px;
+    padding: 5px 20px;
+    border: 1px solid rgb(50, 50, 50);
+}
+
+button:active {
+    background-color: rgb(50, 50, 50);
+    color: white;
+}
+
+img {
+    border-radius: 10px;
+    width: 240px
+}
+
+.header {
+    z-index: 10000;
+    background-color: #fff;
+    padding: 20px 0;
+    vertical-align: middle;
+    top: 0;
+    width: 100%;
+    position: fixed;
+    border-bottom: 1px solid rgb(50, 50, 50);
+}
+
+.header p {
+    margin: 0;
+    font-size: 24px;
+}
+
+.header .logo {
+    background-image: url('../images/logo.svg');
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+.header .link {
+    float: right;
+    margin: 5px 15px;
+    color: rgb(50, 50, 50);
+}
+
+.content {
+    margin: 20px 0;
+}
+
+.experience {
+    position: relative;
+    overflow: hidden;
+}
+
+.experience .fill {
+    position: absolute;
+    background-color: rgba(50, 150, 250, 0.1);
+    width: 100%;
+    left: 0;
+    bottom: 0px;
+}
+
+.group {
+    margin-top: 50px;
+}
+
+.card-content {
+    z-index: 100;
+}
+
+.spacer {
+    padding: 10px;
+}
+
+.card {
+    background-color: #fff;
+    padding: 10px;
+    padding-top: 150px;
+    text-align: right;
+    border: 1px solid rgb(50, 50, 50);
+}
+
+.card h1 {
+    font-size: 21px;
+}
+
+.footer {
+
+}

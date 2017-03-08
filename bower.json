@@ -1,0 +1,22 @@
+{
+  "name": "Portfolio",
+  "authors": [
+    "Sam Grew <shanker1210@hotmail.co.uk>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angularjs#^1.6.2",
+    "bootstrap": "v4.0.0-alpha.6"
+  }
+}

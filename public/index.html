@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sam Grew's Portfolio</title>
+
+        <link rel="stylesheet" href="resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="resources/css/app.css">
+
+        <script src="resources/bower_components/angular/angular.min.js"></script>
+        <script src="resources/javascript/app.js"></script>
+    </head>
+    <body>
+
+        <div ng-controller="PortfolioController">
+
+            <div class="header">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-sm-6">
+                            <span class="logo"></span>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <a class="link" href="index.html">Contact</a>
+                            <a class="link" href="index.html">Projects</a>
+                            <a class="link" href="https://github.com/AceXintense" target="_blank">Github</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="container">
+                    <div class="group">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <h1>About Me</h1>
+                                <p>
+                                    Phasellus nisi nulla, laoreet id felis ut, vulputate dapibus risus. Suspendisse lobortis arcu mi,
+                                    vitae dapibus turpis varius et. Mauris sit amet eros odio. Maecenas mattis rutrum nulla, at
+                                    tempus mauris pulvinar nec. Duis cursus quis arcu vel dictum. Praesent viverra dui sed iaculis
+                                    blandit. Aliquam sagittis massa sem, vel aliquet libero ullamcorper nec.
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <img src="{{user.avatar_url}}" alt="Me">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group">
+                        <h1>Experience</h1>
+                        <div class="row">
+
+                            <div class="spacer col-sm-4" ng-repeat="skill in skills">
+                                <div class="card experience">
+                                    <div class="card-content">
+                                        <h1>{{skill.language}}</h1>
+                                        <p>{{skill.experience}}</p>
+                                    </div>
+                                    <div class="fill" style="height: {{skill.value}}px;"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="group">
+                        <h1>Projects</h1>
+                        <button ng-click="getRepository(null)">All</button>
+                        <button ng-click="getRepository('php')">PHP</button>
+                        <button ng-click="getRepository('python')">Python</button>
+                        <div class="projects-group">
+
+                            <div class="row">
+                                <div class="spacer col-md-4" ng-repeat="project in projects">
+                                    <div class="card">
+                                        <h1>{{project.name}}</h1>
+                                        <p>{{project.description}}</p>
+                                        <a href="{{project.html_url}}">Github</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="container">
+                    <p>Footer</p>
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>
