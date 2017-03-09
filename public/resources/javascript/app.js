@@ -5,6 +5,9 @@ angular.module('Portfolio', [])
         $scope.filters = [];
         $scope.githubURL = 'https://github.com/AceXintense';
         $scope.copyrightYear = new Date().getFullYear();
+        $scope.cache = [];
+        $scope.repositoryCount = 0;
+        $scope.repositoryCurrentCount = 0;
 
         $scope.skills = [
             {
@@ -98,6 +101,7 @@ angular.module('Portfolio', [])
                     // this callback will be called asynchronously
                     // when the response is available
                     $scope.repositories = response.data;
+                    $scope.repositoryCount = $scope.repositories.total_count;
                     $scope.getLanguageFilters();
 
                 }, function errorCallback(response) {
@@ -126,6 +130,13 @@ angular.module('Portfolio', [])
 
         $scope.getRepository = function (language) {
             if (language !== null) {
+                //Get the results from the cache.
+                if ($scope.cache[language] != null) {
+                    $scope.projects = $scope.cache[language];
+                    $scope.repositoryCurrentCount = $scope.projects.total_count;
+                    return true;
+                }
+
                 $http({
                     method: 'GET',
                     url: 'https://api.github.com/search/repositories?q=language:' + language + '+user:acexintense'
@@ -134,6 +145,8 @@ angular.module('Portfolio', [])
                         // this callback will be called asynchronously
                         // when the response is available
                         $scope.projects = response.data['items'];
+                        $scope.cache[language] = $scope.projects;
+                        $scope.repositoryCurrentCount = response.data.total_count;
 
                     }, function errorCallback(response) {
                         // called asynchronously if an error occurs
@@ -149,6 +162,7 @@ angular.module('Portfolio', [])
                         // this callback will be called asynchronously
                         // when the response is available
                         $scope.projects = response.data;
+                        $scope.repositoryCurrentCount = response.data.length
 
                     }, function errorCallback(response) {
                         // called asynchronously if an error occurs

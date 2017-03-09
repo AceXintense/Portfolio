@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="resources/css/app.css">
 
+        <script src="resources/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="resources/bower_components/angular/angular.min.js"></script>
         <script src="resources/javascript/app.js"></script>
     </head>
@@ -71,7 +72,17 @@
 
                     <div class="group">
                         <h1>Projects</h1>
-                        <button ng-repeat="filter in filters" ng-click="getRepository(filter.searchName) + setSelectedFilter(filter.title)" ng-class="selectedFilter == filter.title ? 'selected' : ''" class="filter">{{filter.title}}</button>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <button ng-repeat="filter in filters" ng-click="getRepository(filter.searchName) + setSelectedFilter(filter.title)" ng-class="selectedFilter == filter.title ? 'selected' : ''" class="filter">{{filter.title}}</button>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <p id="repository-count">{{repositoryCurrentCount}}/{{repositoryCount}}</p>
+                            </div>
+                        </div>
+
                         <div class="projects-group">
 
                             <div class="row">

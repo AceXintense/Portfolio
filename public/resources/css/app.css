@@ -43,7 +43,7 @@
 body {
     margin: 0;
     margin-top: 100px;
-    background-image: url("../images/background.svg");
+    background-image: url("../images/background.png");
     background-size: 100vw;
 }
 
@@ -54,7 +54,7 @@ button.filter {
     border: 1px solid rgb(50, 50, 50);
 }
 
-button.filter:nth-child(1n+3) {
+button.filter:nth-child(1n+2) {
     margin-left: 10px;
 }
 
@@ -126,7 +126,7 @@ img {
     background-color: rgba(50, 150, 250, 0.1);
     width: 100%;
     left: 0;
-    bottom: 0px;
+    bottom: 0;
 }
 
 .group {
@@ -159,6 +159,17 @@ img {
 
 .card h1 {
     font-size: 21px;
+}
+
+#repository-count {
+    font-size: 68px;
+    float: right;
+    margin: 0;
+    position: absolute;
+    top: -45px;
+    color: rgba(50, 50, 50, .2);
+    right: 10px;
+    font-family: "Monoid";
 }
 
 .footer {
