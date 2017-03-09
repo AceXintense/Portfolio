@@ -4,33 +4,33 @@
     <title>Artboard</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="Monoid-Retina, Monoid" opacity="0.132586051" font-weight="300">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-family="Monoid-Retina, Monoid" opacity="0.132586051" font-weight="300" font-family="Monoid">
         <g id="Artboard">
-            <text id="PHP" transform="translate(424.570328, 87.570328) rotate(-315.000000) translate(-424.570328, -87.570328) " font-size="72" fill="#9012FE">
+            <text id="PHP" transform="translate(424.570328, 87.570328) rotate(-315.000000) translate(-424.570328, -87.570328) " font-size="72" fill="#9012FE" font-family="Monoid">
                 <tspan x="352.570328" y="127.070328">PHP</tspan>
             </text>
-            <text id="Laravel" transform="translate(162.986021, 125.419571) rotate(-315.000000) translate(-162.986021, -125.419571) " font-size="48" fill="#D0011B">
+            <text id="Laravel" transform="translate(162.986021, 125.419571) rotate(-315.000000) translate(-162.986021, -125.419571) " font-size="48" fill="#D0011B" font-family="Monoid">
                 <tspan x="50.986021" y="151.919571">Laravel</tspan>
             </text>
-            <text id="CSS" transform="translate(323.570328, 336.070328) rotate(-315.000000) translate(-323.570328, -336.070328) " font-size="24" fill="#417505">
+            <text id="CSS" transform="translate(323.570328, 336.070328) rotate(-315.000000) translate(-323.570328, -336.070328) " font-size="24" fill="#417505" font-family="Monoid">
                 <tspan x="299.570328" y="349.070328">CSS</tspan>
             </text>
-            <text id="HTML" transform="translate(301.405592, 106.405592) rotate(-315.000000) translate(-301.405592, -106.405592) " font-size="24" fill="#7ED321">
+            <text id="HTML" transform="translate(301.405592, 106.405592) rotate(-315.000000) translate(-301.405592, -106.405592) " font-size="24" fill="#7ED321" font-family="Monoid">
                 <tspan x="269.405592" y="119.405592">HTML</tspan>
             </text>
-            <text id="Javascript" transform="translate(170.062446, 341.062446) rotate(-315.000000) translate(-170.062446, -341.062446) " font-size="24" fill="#6C6400">
+            <text id="Javascript" transform="translate(170.062446, 341.062446) rotate(-315.000000) translate(-170.062446, -341.062446) " font-size="24" fill="#6C6400" font-family="Monoid">
                 <tspan x="90.0624458" y="354.062446">Javascript</tspan>
             </text>
-            <text id="Angular" transform="translate(406.033009, 288.033009) rotate(-315.000000) translate(-406.033009, -288.033009) " font-size="24" fill="#4990E2">
+            <text id="Angular" transform="translate(406.033009, 288.033009) rotate(-315.000000) translate(-406.033009, -288.033009) " font-size="24" fill="#4990E2" font-family="Monoid">
                 <tspan x="350.033009" y="301.033009">Angular</tspan>
             </text>
-            <text id="Gulp" transform="translate(54.033009, 198.033009) rotate(-315.000000) translate(-54.033009, -198.033009) " font-size="24" fill="#EAC8FF">
+            <text id="Gulp" transform="translate(54.033009, 198.033009) rotate(-315.000000) translate(-54.033009, -198.033009) " font-size="24" fill="#EAC8FF" font-family="Monoid">
                 <tspan x="22.0330086" y="211.033009">Gulp</tspan>
             </text>
-            <text id="Grunt" transform="translate(98.062446, 462.062446) rotate(-315.000000) translate(-98.062446, -462.062446) " font-size="24" fill="#8B572A">
+            <text id="Grunt" transform="translate(98.062446, 462.062446) rotate(-315.000000) translate(-98.062446, -462.062446) " font-size="24" fill="#8B572A" font-family="Monoid">
                 <tspan x="58.0624458" y="475.062446">Grunt</tspan>
             </text>
-            <text id="Bower" transform="translate(405.719300, 466.937446) rotate(-315.000000) translate(-405.719300, -466.937446) " font-size="24" fill="#50E3C2">
+            <text id="Bower" transform="translate(405.719300, 466.937446) rotate(-315.000000) translate(-405.719300, -466.937446) " font-size="24" fill="#50E3C2" font-family="Monoid">
                 <tspan x="365.7193" y="479.937446">Bower</tspan>
             </text>
         </g>
