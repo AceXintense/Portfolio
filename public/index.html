@@ -6,10 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" href="resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="resources/bower_components/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="resources/css/app.css">
 
         <script src="resources/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="resources/bower_components/angular/angular.min.js"></script>
+        <script src="resources/bower_components/typed.js/dist/typed.min.js"></script>
         <script src="resources/javascript/app.js"></script>
     </head>
     <body>
@@ -20,14 +22,16 @@
                 <div class="container">
                     <div class="row">
 
-                        <div class="col-sm-6">
+                        <div class="col-xs-2 col-sm-4 col-md-6 hidden-sm-down">
                             <span class="logo"></span>
                         </div>
 
-                        <div class="col-sm-6">
-                            <a class="link" href="index.html">Contact</a>
-                            <a class="link" href="index.html">Projects</a>
-                            <a class="link" href="https://github.com/AceXintense" target="_blank">Github</a>
+                        <div class="col-4 hidden-sm-up">
+                            <button><i class="fa fa-bars" aria-hidden="true"></i></button>
+                        </div>
+
+                        <div class="col-8 col-sm-12 col-md-6">
+                            <a class="link github" href="https://github.com/AceXintense" target="_blank">Github <i class="fa fa-github" aria-hidden="true"></i></a>
                         </div>
 
                     </div>
@@ -36,9 +40,27 @@
 
             <div class="content">
                 <div class="container">
+
+                    <div class="header-info">
+                        <h1>I'm a <span>Developer</span></h1>
+                        <p>What skills are you looking for?</p>
+
+                        <div class="grop">
+                            <input type="text" placeholder="PHP, MySQL, Postgres, HTML..." ng-model="search" ng-keypress="enterToSearch($event)">
+                            <button ng-click="searchFor(search)" class="hidden-sm-down"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+
+                            <div class="search-results" ng-show="results.length > 0">
+                                <div class="result" ng-repeat="result in results">
+                                    <a ng-click="scrollToId(result.id)">{{result.language}}</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
                     <div class="group">
                         <div class="row">
-                            <div class="col-sm-8">
+                            <div class="col-sm-6">
                                 <h1>About Me</h1>
                                 <p>
                                     Phasellus nisi nulla, laoreet id felis ut, vulputate dapibus risus. Suspendisse lobortis arcu mi,
@@ -47,31 +69,41 @@
                                     blandit. Aliquam sagittis massa sem, vel aliquet libero ullamcorper nec.
                                 </p>
                             </div>
-                            <div class="col-sm-4">
-                                <img src="{{user.avatar_url}}" class="profile-picture" alt="Me">
+                            <div class="col-12 col-sm-6 flex-first flex-md-last">
+                                <div class="profile">
+                                    <img src="{{user.avatar_url}}" class="profile-picture" alt="Me">
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="group">
-                        <h1>Experience</h1>
+                    <div class="tabs row">
+                        <div ng-class="
+                        {
+                            'col-6' : tab.selected == true,
+                            'col-2' : tab.selected == false
+                        }" ng-repeat="(id, tab) in tabs">
+                            <button class="tab-button" ng-click="selectTab(id)" ng-class="{'selected' : tab.selected == true}"><span class="hidden-sm-down">{{tab.name}}</span> <i class="fa {{tab.icon}} hidden-md-up" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="group" ng-show="isTabSelected(0)">
                         <div class="row">
 
-                            <div class="spacer col-sm-4" ng-repeat="skill in skills">
-                                <div class="card experience">
+                            <div class="spacer col-sm-6 col-lg-4" ng-repeat="skill in skills">
+                                <div class="card experience" id="{{skill.id}}">
                                     <div class="card-content">
                                         <h1>{{skill.language}}</h1>
                                         <p>{{skill.experience}}</p>
                                     </div>
-                                    <div class="fill" style="height: {{skill.value}}px;"></div>
+                                    <div class="fill" style="height: {{skill.value}}%;"></div>
                                 </div>
                             </div>
 
                         </div>
                     </div>
 
-                    <div class="group">
-                        <h1>Projects</h1>
+                    <div class="group" ng-show="isTabSelected(1)">
 
                         <div class="row">
                             <div class="col-sm-6">
@@ -86,7 +118,7 @@
                         <div class="projects-group">
 
                             <div class="row">
-                                <div class="spacer col-md-4 col-sm-6" ng-repeat="project in projects">
+                                <div class="spacer col-sm-6 col-lg-4" ng-repeat="project in projects">
                                     <div class="card">
                                         <p class="language">{{project.language}}</p>
                                         <h1>{{project.name}}</h1>
@@ -105,7 +137,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-6">
-                                <p>Designed by Sam Grew (<a href="{{githubURL}}">AceXintense</a>)</p>
+                            <p>Designed by Sam Grew (<a href="{{githubURL}}">AceXintense</a>)</p>
                         </div>
                         <div class="col-sm-6">
                             <p id="copyright">Copyright {{copyrightYear}}</p>

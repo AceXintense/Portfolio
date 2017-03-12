@@ -47,31 +47,32 @@ body {
     background-size: 100vw;
 }
 
-button.filter {
-    background-color: white;
-    border-radius: 5px;
-    padding: 5px 20px;
-    border: 1px solid rgb(50, 50, 50);
+.typed-cursor{
+    opacity: 1;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
 }
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+
+
 
 button.filter:nth-child(1n+2) {
     margin-left: 10px;
-}
-
-button:hover.filter {
-    background-color: rgb(50, 150, 250);
-    border-color: rgb(50, 150, 250);
-    color: white;
-}
-
-button:active.filter {
-    background-color: rgb(50, 50, 50);
-    color: white;
-}
-
-button.selected {
-    background-color: rgb(50, 50, 50);
-    color: white;
 }
 
 img {
@@ -129,8 +130,79 @@ img {
     bottom: 0;
 }
 
+.header-info {
+    padding: 200px 0;
+    text-align: center;
+}
+
+.header-info h1 {
+    font-family: Monoid;
+    font-size: 3.5vw;
+    min-font-size: 300px;
+    font-weight: 600;
+}
+
+.header-info span {
+    font-family: Monoid;
+    font-size: 3.5vw;
+    font-weight: 300;
+}
+
+.header-info p {
+    font-size: 2vw;
+}
+
+
+.header-info input {
+padding: 10px;
+width: 30vw;
+min-width: 300px;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+outline: none;
+border: 1px solid black;
+}
+
+.header-info .search-results {
+    padding: 0;
+    margin: 0 auto;
+    width: 36.05vw;
+    min-width: 300px;
+    outline: none;
+    border: 1px solid black;
+    margin-top: 10px;
+}
+
+.header-info .search-results .result {
+    font-size: 24px;
+    background-color: #fff;
+}
+
+.header-info .search-results .result:hover {
+    background-color: black;
+}
+
+.header-info .search-results .result:hover a {
+    color: white;
+}
+
+.header-info .search-results .result:first-child a {
+    border: 0px;
+}
+
+.header-info .search-results .result a {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border-top: 1px solid black;
+    display: inline-block;
+    color: black;
+    text-decoration: none;
+}
+
 .group {
-    margin-top: 50px;
+margin-top: 0px;
 }
 
 .card-content {
@@ -138,7 +210,69 @@ img {
 }
 
 .spacer {
-    padding: 10px;
+    padding-top: 20px;
+}
+
+.profile {
+    position: relative;
+    height: 290px;
+}
+
+.tab-button {
+    width: 100%;
+}
+
+button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: white;
+    border: 1px solid #323232;
+    padding: 10px 20px;
+}
+
+button:hover {
+    background-color: #323232;
+    color: white;
+}
+
+button.selected {
+    background-color: #323232;
+    color: white;
+}
+
+.card {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.tabs {
+    margin: 20px 0;
+}
+
+.tabs > div {
+    transition: .1s linear;
+}
+
+.tabs > :first-child button {
+    border-right: none;
+}
+
+.tabs > :nth-child(2) button {
+    border-right: none;
+}
+
+.tabs > :last-child button {
+    border-left: none;
+}
+
+.tabs .col-6 {
+    padding: 0;
+}
+
+.tabs .col-2 {
+    padding: 0;
 }
 
 .card {
@@ -162,11 +296,11 @@ img {
 }
 
 #repository-count {
-    font-size: 68px;
+    font-size: 42px;
     float: right;
     margin: 0;
     position: absolute;
-    top: -45px;
+    top: -10px;
     color: rgba(50, 50, 50, .2);
     right: 10px;
     font-family: "Monoid";
@@ -178,4 +312,43 @@ img {
 
 #copyright {
     float: right;
+}
+
+@media (max-width: 575px) {
+
+    .header {
+        padding: 5px;
+    }
+
+    .header .github {
+        padding: 6px;
+    }
+
+    .header-info {
+        padding-top: 50px;
+        padding-bottom: 30px;
+    }
+
+    .header-info h1, .header-info span {
+        font-size: 18px;
+    }
+
+    .header-info p {
+        font-size: 16px;
+    }
+
+    .profile-picture {
+        position: absolute;
+        top: 0; bottom:0; left: 0; right:0;
+        margin: auto;
+    }
+
+    #repository-count {
+        display: none;
+    }
+
+    .group {
+        text-align: center;
+    }
+
 }

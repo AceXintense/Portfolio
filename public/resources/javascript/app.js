@@ -1,5 +1,5 @@
 angular.module('Portfolio', [])
-    .controller('PortfolioController', function ($scope, $http) {
+    .controller('PortfolioController', function ($scope, $http, $location, $anchorScroll) {
         $scope.projects = [];
         $scope.repositories = {};
         $scope.filters = [];
@@ -8,44 +8,174 @@ angular.module('Portfolio', [])
         $scope.cache = [];
         $scope.repositoryCount = 0;
         $scope.repositoryCurrentCount = 0;
+        $scope.selectedTab = 0;
+
+        $scope.results = [];
+
+        $scope.tabs = [
+            {
+                name: 'Experience',
+                selected: true,
+                icon: 'fa-book'
+            },
+            {
+                name: 'Projects',
+                selected: false,
+                icon: 'fa-code-fork'
+            },
+            {
+                name: 'Gallery',
+                selected: false,
+                icon: 'fa-picture-o'
+            },
+            {
+                name: 'Contact',
+                selected: false,
+                icon: 'fa-envelope'
+            }
+        ];
 
         $scope.skills = [
             {
                 language: 'PHP',
                 experience: '1.5 Year\'s',
-                value: 100
+                value: 50,
+                id: 'php'
             },
             {
                 language: 'HTML',
                 experience: '4 Year\'s',
-                value: 200
+                value: 90,
+                id: 'html'
             },
             {
                 language: 'CSS',
                 experience: '2 Year\'s',
-                value: 140
+                value: 80,
+                id: 'css'
             },
             {
                 language: 'Javascript',
                 experience: '2 Year\'s',
-                value: 120
+                value: 80,
+                id: 'javascript'
             },
             {
                 language: 'Angular',
                 experience: '1 Month',
-                value: 20
+                value: 5,
+                id: 'angular'
             },
             {
                 language: 'Python',
                 experience: '1 Year\'s',
-                value: 90
+                value: 30,
+                id: 'python'
             },
             {
                 language: 'Visual Basic',
                 experience: '3 Year\'s',
-                value: 180
+                value: 70,
+                id: 'visual_basic'
+            },
+            {
+                language: 'MySQL',
+                experience: '2 Year\'s',
+                value: 50,
+                id: 'mysql'
+            },
+            {
+                language: 'Postgres SQL',
+                experience: '1 Year\'s',
+                value: 25,
+                id: 'postgres_sql'
             }
         ];
+
+        $(function(){
+            $(".header-info span").typed({
+                strings: [
+                    "Software Engineer.",
+                    "Game Developer.",
+                    "Web Developer."
+                ],
+                loop: true,
+                loopCount: null,
+                typeSpeed: 25,
+                backSpeed: 25,
+                backDelay: 1000,
+                shuffle: false,
+                showCursor: false
+            });
+        });
+
+        $scope.scrollToId = function (id) {
+
+            $scope.selectTab(0);
+
+            $location.hash(id);
+            $anchorScroll();
+
+        };
+
+        $scope.enterToSearch = function(keyEvent) {
+            if (keyEvent.which === 13) {
+                $scope.results = [];
+                $scope.searchFor($scope.search);
+            }
+        }
+
+
+        $scope.searchFor = function (text) {
+
+            $scope.results = [];
+
+            if (text === undefined) {
+                $scope.results.push({
+                    language: 'No Results found'
+                });
+                return true;
+            }
+
+            text = text.toLowerCase();
+
+            for (var i = 0; i < $scope.skills.length; i++) {
+
+                if ($scope.skills[i].language.toLowerCase().indexOf(text) !== -1) {
+
+                    var skill = {
+                        language: $scope.skills[i].language + ' - ' + $scope.skills[i].experience + ' experience click for more information.',
+                        id: $scope.skills[i].id
+                    }
+
+                    $scope.results.push(skill);
+                }
+
+            }
+
+            if ($scope.results.length === 0) {
+                $scope.results.push({
+                    language: 'No Results found for ' + text
+                });
+                return true;
+            }
+
+        };
+
+        $scope.isTabSelected = function (tabId) {
+            return $scope.tabs[tabId].selected;
+        };
+
+        $scope.selectTab = function (tabId) {
+
+            for (var i = 0; i < $scope.tabs.length; i++) {
+                $scope.tabs[i].selected = false;
+            }
+
+            $scope.tabs[tabId].selected = true;
+            $scope.selectedTab = tabId;
+
+        };
 
         $scope.getLanguageFilters = function () {
             //Prefilter array structure.
@@ -133,7 +263,7 @@ angular.module('Portfolio', [])
                 //Get the results from the cache.
                 if ($scope.cache[language] != null) {
                     $scope.projects = $scope.cache[language];
-                    $scope.repositoryCurrentCount = $scope.projects.total_count;
+                    $scope.repositoryCurrentCount = $scope.projects.length;
                     return true;
                 }
 

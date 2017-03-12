@@ -17,6 +17,8 @@
   ],
   "dependencies": {
     "angular": "angularjs#^1.6.2",
-    "bootstrap": "v4.0.0-alpha.6"
+    "bootstrap": "v4.0.0-alpha.6",
+    "typed.js": "^1.1.6",
+    "font-awesome": "fontawesome#^4.7.0"
   }
 }
