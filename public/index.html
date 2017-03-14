@@ -60,11 +60,11 @@
 
                             <div class="search-results" ng-show="results.length > 0">
                                 <div class="result" ng-repeat="result in results">
-                                    <a ng-click="scrollToId(result.id) + clearSearch()">{{result.title}}</a>
+                                    <a ng-click="scrollToId(result.id); clearSearch();">{{result.title}}</a>
                                 </div>
                             </div>
 
-                            <button class="clear-search" ng-show="results.length > 0">Clear Search</button>
+                            <button class="clear-search" ng-click="clearSearch()" ng-show="results.length > 0">Clear Search</button>
 
                         </div>
 
