@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900');
 
 @font-face {
-    font-family: 'monoidbold';
+    font-family: 'Monoid Bold';
     src: url('../fonts/monoid-bold-webfont.woff2') format('woff2'),
     url('../fonts/monoid-bold-webfont.woff') format('woff');
     font-weight: normal;
@@ -10,7 +10,7 @@
 }
 
 @font-face {
-    font-family: 'monoiditalic';
+    font-family: 'Monoid Italic';
     src: url('../fonts/monoid-italic-webfont.woff2') format('woff2'),
     url('../fonts/monoid-italic-webfont.woff') format('woff');
     font-weight: normal;
@@ -19,7 +19,7 @@
 }
 
 @font-face {
-    font-family: 'monoidregular';
+    font-family: 'Monoid';
     src: url('../fonts/monoid-regular-webfont.woff2') format('woff2'),
     url('../fonts/monoid-regular-webfont.woff') format('woff');
     font-weight: normal;
@@ -28,7 +28,7 @@
 }
 
 @font-face {
-    font-family: 'monoidretina';
+    font-family: 'Monoid';
     src: url('../fonts/monoid-retina-webfont.woff2') format('woff2'),
     url('../fonts/monoid-retina-webfont.woff') format('woff');
     font-weight: normal;
@@ -53,26 +53,28 @@ body {
     -moz-animation: blink 0.7s infinite;
     animation: blink 0.7s infinite;
 }
+
 @keyframes blink{
     0% { opacity:1; }
     50% { opacity:0; }
     100% { opacity:1; }
 }
+
 @-webkit-keyframes blink{
     0% { opacity:1; }
     50% { opacity:0; }
     100% { opacity:1; }
 }
+
 @-moz-keyframes blink{
     0% { opacity:1; }
     50% { opacity:0; }
     100% { opacity:1; }
 }
 
-
-
 button.filter:nth-child(1n+2) {
     margin-left: 10px;
+    margin-top: 10px;
 }
 
 img {
@@ -80,15 +82,28 @@ img {
     width: 240px
 }
 
+.profile-picture {
+    background-color: #fff;
+}
+
 .header {
     z-index: 10000;
-    background-color: #fff;
+    background-color: rgb(256, 256, 256);
     padding: 20px 0;
     vertical-align: middle;
     top: 0;
     width: 100%;
     position: fixed;
     border-bottom: 1px solid rgb(50, 50, 50);
+}
+
+/* support backdrop-filter */
+@supports ( (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)) ) {
+    .header {
+        background-color: rgba(256, 256, 256, 0.8);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
 }
 
 .header p {
@@ -136,14 +151,14 @@ img {
 }
 
 .header-info h1 {
-    font-family: Monoid;
+    font-family: "Monoid Bold";
     font-size: 3.5vw;
     min-font-size: 300px;
     font-weight: 600;
 }
 
 .header-info span {
-    font-family: Monoid;
+    font-family: "Monoid";
     font-size: 3.5vw;
     font-weight: 300;
 }
@@ -154,14 +169,25 @@ img {
 
 
 .header-info input {
-padding: 10px;
-width: 30vw;
-min-width: 300px;
--webkit-appearance: none;
--moz-appearance: none;
-appearance: none;
-outline: none;
-border: 1px solid black;
+    padding: 10px;
+    width: 40vw;
+    min-width: 200px;
+    max-width: 576px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    border-radius: 0;
+    border: 1px solid black;
+}
+
+.search-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    border-radius: 0;
+    padding: 10px;
 }
 
 .header-info .search-results {
@@ -191,6 +217,11 @@ border: 1px solid black;
     border: 0px;
 }
 
+.header-info .clear-search {
+    margin-top: 10px;
+    width: 36.05vw;
+}
+
 .header-info .search-results .result a {
     width: 100%;
     padding: 10px;
@@ -202,7 +233,7 @@ border: 1px solid black;
 }
 
 .group {
-margin-top: 0px;
+    margin-top: 0px;
 }
 
 .card-content {
@@ -237,6 +268,27 @@ button:hover {
 }
 
 button.selected {
+    background-color: #323232;
+    color: white;
+}
+
+.button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: white;
+    border: 1px solid #323232;
+    padding: 10px 20px;
+    color: black;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #323232;
+    color: white;
+}
+
+.button.selected {
     background-color: #323232;
     color: white;
 }
@@ -295,6 +347,52 @@ button.selected {
     font-size: 21px;
 }
 
+.gallery-row:nth-child(n+2) {
+    margin-top: 10px;
+}
+
+.gallery-row {
+    margin-bottom: 20px;
+}
+
+.gallery-row .picture {
+    border-radius: 0;
+    width: 100%;
+    height: 20vw;
+    background-repeat: no-repeat;
+    -webkit-background-size: contain;
+    background-size: contain;
+}
+
+.gallery-row .button {
+    margin-bottom: 20px;
+}
+
+.gallery-row .gallery-description {
+    padding: 20px;
+    border: 1px solid black;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+.gallery-row .gallery-content {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid black;
+}
+
+.group .gallery-navigation h1 {
+    text-align: center;
+}
+
+.group .gallery-navigation button {
+    width: 100%;
+}
+
+.group .gallery-navigation button:nth-child(n+2) {
+    margin-top: 10px
+}
+
 #repository-count {
     font-size: 42px;
     float: right;
@@ -314,6 +412,17 @@ button.selected {
     float: right;
 }
 
+@media (max-width: 768px) {
+
+    .header-info span {
+        height: 24px;
+        display: block;
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+
+}
+
 @media (max-width: 575px) {
 
     .header {
@@ -330,7 +439,14 @@ button.selected {
     }
 
     .header-info h1, .header-info span {
-        font-size: 18px;
+        font-size: 28px;
+    }
+
+    .header-info span {
+        height: 24px;
+        display: block;
+        margin-bottom: 20px;
+        font-size: 24px;
     }
 
     .header-info p {
@@ -348,6 +464,14 @@ button.selected {
     }
 
     .group {
+        text-align: center;
+    }
+
+    #copyright {
+       float: none;
+    }
+
+    .footer {
         text-align: center;
     }
 

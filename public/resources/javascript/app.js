@@ -1,5 +1,6 @@
 angular.module('Portfolio', [])
     .controller('PortfolioController', function ($scope, $http, $location, $anchorScroll) {
+
         $scope.projects = [];
         $scope.repositories = {};
         $scope.filters = [];
@@ -9,8 +10,17 @@ angular.module('Portfolio', [])
         $scope.repositoryCount = 0;
         $scope.repositoryCurrentCount = 0;
         $scope.selectedTab = 0;
+        $scope.searchType = 'skills';
+
+        $scope.searchTypeHelpers = {
+            skills: 'PHP, MySQL, Postgres, HTML...',
+            projects: 'PHPCast, Python, PHP, Portfolio...',
+            galleries: 'PHPCast, PHP-Server-Monitoring...'
+        };
 
         $scope.results = [];
+
+        $scope.galleries = [];
 
         $scope.tabs = [
             {
@@ -109,12 +119,126 @@ angular.module('Portfolio', [])
             });
         });
 
-        $scope.scrollToId = function (id) {
+        //https://portfolio-resources.s3.eu-west-2.amazonaws.com
+        AWS.config.region = 'eu-west-2';
+        AWS.config.accessKeyId = 'AKIAJTA4Y4XHCLYIJRUA';
+        AWS.config.secretAccessKey = '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';
 
-            $scope.selectTab(0);
+        var baseURL = 'https://portfolio-resources.s3.eu-west-2.amazonaws.com';
+        var s3 = new AWS.S3();
+        var params = {
+            Bucket: 'portfolio-resources',
+            EncodingType: 'url'
+        };
+
+        String.prototype.replaceAll = function(search, replacement) {
+            var target = this;
+            return target.split(search).join(replacement);
+        };
+
+        $scope.getGalleries = function (objects) {
+
+            for (var i = 0; i < objects.Contents.length; i++) {
+
+                if (objects.Contents[i].Key.split("/").length > 2) {
+
+                    var splits =  objects.Contents[i].Key.split("/");
+
+                    if (splits[2] !== '') {
+
+                        if ($scope.galleries.length === 0) {
+
+                            var galleryGroup = createGalleryGroup(splits);
+
+                            var gallery = createGallery(baseURL, splits);
+
+                            galleryGroup.objects.push(gallery);
+
+                            $scope.galleries.push(galleryGroup);
+
+                        } else {
+
+                            for (var t = 0; t < $scope.galleries.length; t++) {
+
+                                if ($scope.galleries[t].name == splits[1]) {
+
+                                    var gallery = createGallery(baseURL, splits);
+
+                                    $scope.galleries[t].objects.push(gallery);
+
+                                } else {
+
+                                    var galleryGroup = createGalleryGroup(splits);
+
+                                    $scope.galleries.push(galleryGroup);
+
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+
+        };
+
+        function createGallery(baseURL, splits) {
+
+            return {
+                pictureURL: baseURL + '/' + splits[0] + '/' + splits[1] + '/' + splits[2]
+            };
+
+        }
+
+        function createGalleryGroup(splits) {
+
+            for (var i = 0; i < $scope.projects.length; i++) {
+                if ($scope.projects[i].name == splits[1]) {
+                    return {
+                        name: splits[1],
+                        objects: [],
+                        description: $scope.projects[i].description,
+                        github: true,
+                        githubURL: $scope.projects[i].html_url
+                    };
+                }
+            }
+
+            return {
+                name: splits[1],
+                objects: [],
+                description: 'No description available for ' + splits[1],
+                github: false,
+                githubURL: ''
+            };
+
+        }
+
+        $scope.scrollToId = function (id, tab) {
+
+            if (tab == undefined) {
+                if ($scope.searchType === 'skills') {
+                    $scope.selectTab(0);
+                } else if ($scope.searchType === 'projects') {
+                    id = 'p-' + id;
+                    $scope.selectTab(1);
+                } else if ($scope.searchType === 'galleries') {
+                    id = 'g-' + id;
+                    $scope.selectTab(2);
+                }
+            } else {
+                $scope.selectTab(tab);
+            }
 
             $location.hash(id);
             $anchorScroll();
+
+        };
+
+        $scope.clearSearch = function () {
+
+            $scope.search = '';
+            $scope.results = [];
 
         };
 
@@ -123,8 +247,67 @@ angular.module('Portfolio', [])
                 $scope.results = [];
                 $scope.searchFor($scope.search);
             }
+        };
+
+        function searchSkills (text) {
+
+            for (var i = 0; i < $scope.skills.length; i++) {
+
+                if ($scope.skills[i].language.toLowerCase().indexOf(text) !== -1) {
+
+                    var skill = {
+                        title: $scope.skills[i].language + ' - ' + $scope.skills[i].experience + ' experience click for more information.',
+                        id: $scope.skills[i].id
+                    };
+
+                    $scope.results.push(skill);
+                }
+
+            }
+
+            return $scope.results.length > 0;
+
         }
 
+        function searchProjects (text) {
+
+            for (var i = 0; i < $scope.projects.length; i++) {
+
+                if ($scope.projects[i].name.toLowerCase().indexOf(text) !== -1) {
+
+                    var project = {
+                        title: $scope.projects[i].name,
+                        id: $scope.projects[i].name
+                    };
+
+                    $scope.results.push(project);
+                }
+
+            }
+
+            return $scope.results.length > 0;
+
+        }
+
+        function searchGalleries (text) {
+
+            for (var i = 0; i < $scope.galleries.length; i++) {
+
+                if ($scope.galleries[i].name.toLowerCase().indexOf(text) !== -1) {
+
+                    var gallery = {
+                        title: $scope.galleries[i].name,
+                        id: $scope.galleries[i].name
+                    };
+
+                    $scope.results.push(gallery);
+                }
+
+            }
+
+            return $scope.results.length > 0;
+
+        }
 
         $scope.searchFor = function (text) {
 
@@ -132,32 +315,34 @@ angular.module('Portfolio', [])
 
             if (text === undefined) {
                 $scope.results.push({
-                    language: 'No Results found'
+                    title: 'No Results found'
                 });
                 return true;
             }
 
             text = text.toLowerCase();
 
-            for (var i = 0; i < $scope.skills.length; i++) {
-
-                if ($scope.skills[i].language.toLowerCase().indexOf(text) !== -1) {
-
-                    var skill = {
-                        language: $scope.skills[i].language + ' - ' + $scope.skills[i].experience + ' experience click for more information.',
-                        id: $scope.skills[i].id
-                    }
-
-                    $scope.results.push(skill);
+            if ($scope.searchType === 'skills') {
+                if (!searchSkills(text)) {
+                    $scope.results.push({
+                        title: 'No Results found for ' + text,
+                        id: ''
+                    });
                 }
-
-            }
-
-            if ($scope.results.length === 0) {
-                $scope.results.push({
-                    language: 'No Results found for ' + text
-                });
-                return true;
+            } else if ($scope.searchType === 'projects') {
+                if (!searchProjects(text)) {
+                    $scope.results.push({
+                        title: 'No Results found for ' + text,
+                        id: ''
+                    });
+                }
+            } else if ($scope.searchType === 'galleries') {
+                if (!searchGalleries(text)) {
+                    $scope.results.push({
+                        title: 'No Results found for ' + text,
+                        id: ''
+                    });
+                }
             }
 
         };
@@ -232,6 +417,15 @@ angular.module('Portfolio', [])
                     // when the response is available
                     $scope.repositories = response.data;
                     $scope.repositoryCount = $scope.repositories.total_count;
+                    s3.listObjects(params, function (err, data) {
+
+                        if (err) {
+                            console.log(err, err.stack);
+                        } else {
+                            $scope.getGalleries(data);
+                        }
+
+                    });
                     $scope.getLanguageFilters();
 
                 }, function errorCallback(response) {
