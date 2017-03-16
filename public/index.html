@@ -145,24 +145,25 @@
                     <div class="group" ng-show="isTabSelected(2)">
 
                         <div class="row">
-                            <div class="col-8">
+                            <div class="col-sm-8">
                                 <div class="gallery-row" ng-repeat="item in galleries">
                                     <div class="gallery-description" id="g-{{item.name}}">
                                         <h1>{{item.name}}</h1>
                                         <p>{{item.description}}</p>
                                         <a class="button" href="{{item.githubURL}}" ng-show="item.github" target="_blank">View on Github</a>
+                                        <span class="button">View Gallery</span>
                                     </div>
                                     <div class="gallery-content">
                                         <div class="row">
-                                            <div class="col-6" ng-repeat="gallery in item.objects">
-                                                <div class="picture" style="background-image: url({{gallery.pictureURL}});"></div>
+                                            <div class="col-sm-6" ng-repeat="gallery in item.objects">
+                                                <img class="picture" src="{{gallery.pictureURL}}">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-4 gallery-navigation">
+                            <div class="col-sm-4 hidden-down gallery-navigation">
                                 <h1>Jump to Gallery</h1>
                                 <button ng-repeat="item in galleries" ng-click="scrollToId('g-' + item.name, 2)">
                                     {{item.name}}

@@ -138,49 +138,49 @@ angular.module('Portfolio', [])
 
         $scope.getGalleries = function (objects) {
 
+            // debugger;
+
             for (var i = 0; i < objects.Contents.length; i++) {
 
-                if (objects.Contents[i].Key.split("/").length > 2) {
 
-                    var splits =  objects.Contents[i].Key.split("/");
+                if (objects.Contents[i].Key.split("/").length === 3 && objects.Contents[i].Key.split("/")[2] != '') {
 
-                    if (splits[2] !== '') {
+                    var splits = objects.Contents[i].Key.split("/");
+                    var groups = function () {
+                        var names = [];
 
-                        if ($scope.galleries.length === 0) {
+                        for (var g = 0; g < $scope.galleries.length; g++) {
+                            names.push($scope.galleries[g].name);
+                        }
 
-                            var galleryGroup = createGalleryGroup(splits);
+                        return names;
+                    };
 
-                            var gallery = createGallery(baseURL, splits);
-
-                            galleryGroup.objects.push(gallery);
-
-                            $scope.galleries.push(galleryGroup);
-
-                        } else {
-
-                            for (var t = 0; t < $scope.galleries.length; t++) {
-
-                                if ($scope.galleries[t].name == splits[1]) {
-
-                                    var gallery = createGallery(baseURL, splits);
-
-                                    $scope.galleries[t].objects.push(gallery);
-
-                                } else {
-
-                                    var galleryGroup = createGalleryGroup(splits);
-
-                                    $scope.galleries.push(galleryGroup);
-
-                                }
-
+                    if (inArray(splits[1], groups())) { //If group found create gallery inside of the group.
+                        for (var g = 0; g < $scope.galleries.length; g++) {
+                            if ($scope.galleries[g].name == splits[1]) {
+                                var gallery = createGallery(baseURL, splits);
+                                $scope.galleries[g].objects.push(gallery);
                             }
                         }
+                    } else { //Create group to allow creation of galleries under.
+                        var galleryGroup = createGalleryGroup(splits);
+                        var gallery = createGallery(baseURL, splits);
+                        galleryGroup.objects.push(gallery);
+                        $scope.galleries.push(galleryGroup);
                     }
                 }
             }
 
         };
+
+        function inArray(needle, haystack) {
+            var length = haystack.length;
+            for(var i = 0; i < length; i++) {
+                if(haystack[i] == needle) return true;
+            }
+            return false;
+        }
 
         function createGallery(baseURL, splits) {
 

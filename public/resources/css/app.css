@@ -124,6 +124,10 @@ img {
     color: rgb(50, 50, 50);
 }
 
+.header .blog {
+    float: right;
+}
+
 .profile-picture {
     float: right;
 }
@@ -265,6 +269,7 @@ button {
 button:hover {
     background-color: #323232;
     color: white;
+    cursor: pointer;
 }
 
 button.selected {
@@ -286,6 +291,8 @@ button.selected {
 .button:hover {
     background-color: #323232;
     color: white;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .button.selected {
@@ -358,10 +365,6 @@ button.selected {
 .gallery-row .picture {
     border-radius: 0;
     width: 100%;
-    height: 20vw;
-    background-repeat: no-repeat;
-    -webkit-background-size: contain;
-    background-size: contain;
 }
 
 .gallery-row .button {
@@ -457,6 +460,10 @@ button.selected {
         position: absolute;
         top: 0; bottom:0; left: 0; right:0;
         margin: auto;
+    }
+
+    .gallery-row .col-sm-6:nth-child(n+2) .picture {
+        margin-top: 10px;
     }
 
     #repository-count {
