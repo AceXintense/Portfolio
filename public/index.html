@@ -45,7 +45,7 @@
 
                         <div class="hidden-md-up">
                             <h1>I'm a</h1>
-                            <span>Developer</span>
+                            <span></span>
                         </div>
                         <p>What {{searchType}} are you looking for?</p>
 
@@ -55,17 +55,18 @@
                                 <option value="projects">Projects</option>
                                 <option value="galleries">Galleries</option>
                             </select>
-                            <input type="text" placeholder="{{searchTypeHelpers[searchType]}}" ng-model="search" ng-keypress="enterToSearch($event)">
-                            <button ng-click="searchFor(search)" class="hidden-sm-down"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
 
-                            <div class="search-results" ng-show="results.length > 0">
-                                <div class="result" ng-repeat="result in results">
-                                    <a ng-click="scrollToId(result.id); clearSearch();">{{result.title}}</a>
+                            <input type="text" placeholder="{{searchTypeHelpers[searchType]}}" ng-model="search" ng-keypress="enterToSearch($event); searchFor(search)">
+
+                            <div class="search-group">
+                                <div class="search-results" ng-show="results.length > 0">
+                                    <div class="result" ng-repeat="result in results">
+                                        <a ng-click="scrollToId(result.id); clearSearch();">{{result.title}}</a>
+                                    </div>
+                                    <button class="clear-search" ng-click="clearSearch()" ng-show="results.length > 0">Clear Search</button>
                                 </div>
+
                             </div>
-
-                            <button class="clear-search" ng-click="clearSearch()" ng-show="results.length > 0">Clear Search</button>
-
                         </div>
 
                     </div>
@@ -163,7 +164,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-4 hidden-down gallery-navigation">
+                            <div class="flex-first col-sm-4 hidden-down gallery-navigation">
                                 <h1>Jump to Gallery</h1>
                                 <button ng-repeat="item in galleries" ng-click="scrollToId('g-' + item.name, 2)">
                                     {{item.name}}

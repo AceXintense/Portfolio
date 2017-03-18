@@ -107,7 +107,8 @@ angular.module('Portfolio', [])
                 strings: [
                     "Software Engineer.",
                     "Game Developer.",
-                    "Web Developer."
+                    "Web Developer.",
+                    "Full Stack Developer."
                 ],
                 loop: true,
                 loopCount: null,
@@ -137,8 +138,6 @@ angular.module('Portfolio', [])
         };
 
         $scope.getGalleries = function (objects) {
-
-            // debugger;
 
             for (var i = 0; i < objects.Contents.length; i++) {
 
@@ -310,14 +309,10 @@ angular.module('Portfolio', [])
         }
 
         $scope.searchFor = function (text) {
-
             $scope.results = [];
 
             if (text === undefined) {
-                $scope.results.push({
-                    title: 'No Results found'
-                });
-                return true;
+                text = '';
             }
 
             text = text.toLowerCase();
