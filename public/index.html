@@ -21,7 +21,7 @@
 
             <div class="header">
                 <div class="container">
-                    <div class="row">
+                    <div class="row" id="header-row">
 
                         <div class="col-6 col-sm-4 col-md-6">
                             <span class="logo"></span>
@@ -31,6 +31,15 @@
                             <a class="link github" href="https://github.com/AceXintense" target="_blank">Github <i class="fa fa-github" aria-hidden="true"></i></a>
                         </div>
 
+                    </div>
+                    <div class="tabs row" id="header-tabs">
+                        <div ng-class="
+                        {
+                            'col-6' : tab.selected == true,
+                            'col-2' : tab.selected == false
+                        }" ng-repeat="(id, tab) in tabs">
+                            <button class="tab-button" ng-click="selectTab(id)" ng-class="{'selected' : tab.selected == true}"><span class="hidden-sm-down">{{tab.name}}</span> <i class="fa {{tab.icon}} hidden-md-up" aria-hidden="true"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,7 +99,7 @@
                         </div>
                     </div>
 
-                    <div class="tabs row">
+                    <div class="tabs row" id="content-tabs">
                         <div ng-class="
                         {
                             'col-6' : tab.selected == true,

@@ -241,6 +241,7 @@ img {
 }
 
 .header-info .search-results .result a {
+    overflow-wrap: break-word;
     width: 100%;
     padding: 10px;
     font-size: 18px;

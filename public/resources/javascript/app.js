@@ -103,6 +103,7 @@ angular.module('Portfolio', [])
         ];
 
         $(function(){
+
             $(".header-info span").typed({
                 strings: [
                     "Software Engineer.",
@@ -117,6 +118,19 @@ angular.module('Portfolio', [])
                 backDelay: 1000,
                 shuffle: false,
                 showCursor: false
+            });
+
+            $("#header-tabs").hide(); // hide the fixed navbar initially
+            $(window).scroll(function(){
+                var topofDiv = $("#content-tabs").offset().top - $(".header").height();
+                if($(window).scrollTop() >= topofDiv){
+                    $("#header-tabs").show();
+                    $("#header-row").hide();
+                }
+                else{
+                    $("#header-tabs").hide();
+                    $("#header-row").show();
+                }
             });
         });
 
