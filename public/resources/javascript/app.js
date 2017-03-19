@@ -12,6 +12,8 @@ angular.module('Portfolio', [])
         $scope.selectedTab = 0;
         $scope.searchType = 'skills';
 
+        $scope.previewWindow = false;
+
         $scope.searchTypeHelpers = {
             skills: 'PHP, MySQL, Postgres, HTML...',
             projects: 'PHPCast, Python, PHP, Portfolio...',
@@ -83,6 +85,36 @@ angular.module('Portfolio', [])
                 id: 'python'
             },
             {
+                language: 'Git',
+                experience: '2 Year\'s',
+                value: 60,
+                id: 'git'
+            },
+            {
+                language: 'Vagrant',
+                experience: '1 Year\'s',
+                value: 30,
+                id: 'vagrant'
+            },
+            {
+                language: 'Java',
+                experience: '2 Month\'s',
+                value: 10,
+                id: 'java'
+            },
+            {
+                language: 'NPM',
+                experience: '2 Year\'s',
+                value: 60,
+                id: 'npm'
+            },
+            {
+                language: 'Google Analytics',
+                experience: '1 Year\'s',
+                value: 30,
+                id: 'ga'
+            },
+            {
                 language: 'Visual Basic',
                 experience: '3 Year\'s',
                 value: 70,
@@ -102,6 +134,24 @@ angular.module('Portfolio', [])
             }
         ];
 
+        $scope.accounts = [
+            {
+                serviceName: 'Twitter',
+                name: 'AceXintense',
+                websiteURL: 'https://twitter.com/AceXintense'
+            },
+            {
+                serviceName: 'Facebook',
+                name: 'Sam Grew',
+                websiteURL: 'https://www.facebook.com/sam.grew'
+            },
+            {
+                serviceName: 'LinkedIn',
+                name: 'Sam Grew',
+                websiteURL: 'https://www.linkedin.com/in/AceXintense'
+            },
+        ];
+
         $(function(){
 
             $(".header-info span").typed({
@@ -109,7 +159,9 @@ angular.module('Portfolio', [])
                     "Software Engineer.",
                     "Game Developer.",
                     "Web Developer.",
-                    "Full Stack Developer."
+                    "Linux Enthusiast.",
+                    "Server Engineer.",
+                    "Stack Developer."
                 ],
                 loop: true,
                 loopCount: null,
@@ -149,6 +201,15 @@ angular.module('Portfolio', [])
         String.prototype.replaceAll = function(search, replacement) {
             var target = this;
             return target.split(search).join(replacement);
+        };
+
+        $scope.closePreviewer = function () {
+            $scope.previewWindow = false;
+        };
+
+        $scope.openInPreviewer = function (url) {
+            $scope.previewURL = url;
+            $scope.previewWindow = true;
         };
 
         $scope.getGalleries = function (objects) {

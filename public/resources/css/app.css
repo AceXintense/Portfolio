@@ -40,12 +40,14 @@
     font-family: 'Raleway', sans-serif;
 }
 
+html,body{ margin:0; padding:0; height:100%; width:100%; }
 body {
     margin: 0;
     margin-top: 100px;
     background-image: url("../images/background.png");
     background-size: 100vw;
 }
+
 
 .typed-cursor{
     opacity: 1;
@@ -82,6 +84,34 @@ img {
     width: 240px
 }
 
+.image-mask {
+    width:100%;
+    overflow:hidden;
+    background-color: rgba(50, 50, 50, 0.8);
+    height: 100%;
+    position: fixed;
+    z-index: 1000000000000000000;
+    top: 0;
+    padding: 10vw;
+}
+
+.image-mask .image {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    background-color: #fff;
+    max-width: 980px;
+    margin: 0 auto;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.image-mask .image button {
+    border-top: 0;
+    border-left: 0;
+}
+
 .profile-picture {
     background-color: #fff;
 }
@@ -99,11 +129,26 @@ img {
 
 /* support backdrop-filter */
 @supports ( (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)) ) {
+
     .header {
         background-color: rgba(256, 256, 256, 0.8);
         -webkit-backdrop-filter: blur(10px);
         backdrop-filter: blur(10px);
     }
+
+    .image-mask{
+        background-color: rgba(50, 50, 50, 0.8);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+    }
+
+    .overlay{
+        background-color: rgba(255, 255, 255, 0.8);
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+    }
+
+
 }
 
 .header p {
@@ -272,13 +317,14 @@ img {
     width: 100%;
 }
 
-button {
+button, input, textarea{
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     background-color: white;
     border: 1px solid #323232;
     padding: 10px 20px;
+    outline: none;
 }
 
 button:hover {
@@ -358,7 +404,8 @@ button.selected {
 }
 
 .card .language {
-    font-size: 48px;
+    font-family: "Monoid";
+    font-size: 32px;
     position: absolute;
     top: 10px;
     left: 20px;
@@ -367,6 +414,27 @@ button.selected {
 
 .card h1 {
     font-size: 21px;
+}
+
+.gallery-picture {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.gallery-picture:hover .overlay {
+    display: block;
+}
+
+.gallery-picture .overlay {
+    position: absolute;
+    color: black;
+    font-size: 46px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: none;
 }
 
 .gallery-row:nth-child(n+2) {
@@ -426,6 +494,30 @@ button.selected {
     font-family: "Monoid";
 }
 
+.contact-form input, .contact-form textarea {
+    padding: 10px;
+    width: 100%;
+}
+
+.contact-form label:nth-child(n+2) {
+    margin-top: 20px;
+}
+
+.contact-form button {
+    margin-top: 20px;
+}
+
+.social-card {
+    border: 1px solid black;
+    padding: 10px;
+    background-color: #fff;
+    margin-top: 20px;
+}
+
+.social-card .icon {
+    font-size: 60px;
+}
+
 .footer {
 
 }
@@ -444,8 +536,28 @@ button.selected {
     }
 
 }
+@media (max-width: 768px) {
+
+    .header-info input {
+        width: 70%;
+    }
+
+    .profile-picture {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+}
 
 @media (max-width: 575px) {
+
+    .image-mask {
+        padding: 5px;
+    }
 
     .header {
         padding: 5px;
@@ -458,6 +570,11 @@ button.selected {
     .header-info {
         padding-top: 50px;
         padding-bottom: 30px;
+    }
+
+    .header-info input {
+        width: 68%;
+        min-width: 195px;
     }
 
     .header-info h1, .header-info span {
@@ -479,12 +596,6 @@ button.selected {
         font-size: 16px;
     }
 
-    .profile-picture {
-        position: absolute;
-        top: 0; bottom:0; left: 0; right:0;
-        margin: auto;
-    }
-
     .gallery-row .col-sm-6:nth-child(n+2) .picture {
         margin-top: 10px;
     }
@@ -503,6 +614,14 @@ button.selected {
 
     .footer {
         text-align: center;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .tabs button {
+        padding: 5px 0;
     }
 
 }

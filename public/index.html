@@ -19,6 +19,13 @@
 
         <div ng-controller="PortfolioController">
 
+            <div class="image-mask" ng-show="previewWindow">
+                <div class="image" style="background-image: url({{previewURL}});">
+                    <button ng-click="closePreviewer()"><i class="fa fa-times" aria-hidden="true"></i></button>
+
+                </div>
+            </div>
+
             <div class="header">
                 <div class="container">
                     <div class="row" id="header-row">
@@ -82,16 +89,19 @@
                     
                     <div class="group">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-md-8">
                                 <h1>About Me</h1>
                                 <p>
-                                    Phasellus nisi nulla, laoreet id felis ut, vulputate dapibus risus. Suspendisse lobortis arcu mi,
-                                    vitae dapibus turpis varius et. Mauris sit amet eros odio. Maecenas mattis rutrum nulla, at
-                                    tempus mauris pulvinar nec. Duis cursus quis arcu vel dictum. Praesent viverra dui sed iaculis
-                                    blandit. Aliquam sagittis massa sem, vel aliquet libero ullamcorper nec.
+                                    Hello my name is Sam! I am 19 and I strive to develop stable and advanced systems in PHP. I am a Software engineer at Glide Utilities.
+                                </p>
+                                <p>
+                                    My main skills are PHP, HTML, CSS, Angular JS most of my applications are written in PHP using Laravel 5+ as the standard framework. I enjoy engineering systems that automate general processes.
+                                </p>
+                                <p>
+                                    Currently the work I do is update a piece of PHP software by adding new features and deprecating old and unused code.
                                 </p>
                             </div>
-                            <div class="col-12 col-sm-6 flex-first flex-md-last">
+                            <div class="col-12 col-md-4 flex-first flex-sm-first flex-md-last">
                                 <div class="profile">
                                     <img src="{{user.avatar_url}}" class="profile-picture" alt="Me">
                                 </div>
@@ -161,12 +171,16 @@
                                         <h1>{{item.name}}</h1>
                                         <p>{{item.description}}</p>
                                         <a class="button" href="{{item.githubURL}}" ng-show="item.github" target="_blank">View on Github</a>
-                                        <span class="button">View Gallery</span>
                                     </div>
                                     <div class="gallery-content">
                                         <div class="row">
                                             <div class="col-sm-6" ng-repeat="gallery in item.objects">
-                                                <img class="picture" src="{{gallery.pictureURL}}">
+                                                <div class="gallery-picture">
+                                                    <div class="overlay" ng-click="openInPreviewer(gallery.pictureURL)">
+                                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                                    </div>
+                                                    <img class="picture" src="{{gallery.pictureURL}}">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -178,6 +192,36 @@
                                 <button ng-repeat="item in galleries" ng-click="scrollToId('g-' + item.name, 2)">
                                     {{item.name}}
                                 </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="group" ng-show="isTabSelected(3)">
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <form method="POST" class="contact-form">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" placeholder="Sam Grew">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" placeholder="email@domain.co.uk">
+                                    <label for="message">Message</label>
+                                    <textarea type="text" id="message" placeholder="Enquiry Message..."></textarea>
+                                    <button>Send</button>
+                                </form>
+                            </div>
+
+                            <div class="col-sm-6 flex-first flex-sm-last">
+                                <div class="row">
+                                    <div class="col-6 col-md-6 col-lg-4" ng-repeat="account in accounts">
+                                        <div class="social-card">
+                                            <i class="fa fa-{{account.serviceName.toLocaleLowerCase()}} icon" aria-hidden="true"></i>
+                                            <p>{{account.name}}</p>
+                                            <a href="{{account.websiteURL}}" target="_blank">{{account.serviceName}}</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -202,4 +246,15 @@
         </div>
 
     </body>
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-71283763-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
 </html>
