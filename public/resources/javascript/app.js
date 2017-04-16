@@ -1,6 +1,7 @@
 angular.module('Portfolio', ['LocalStorageModule'])
     .controller('PortfolioController', function ($scope, $http, $location, $anchorScroll, localStorageService) {
 
+        $scope.selectedFilter = 'All';
         $scope.projects = [];
         $scope.repositories = {};
         $scope.filters = [];
@@ -262,7 +263,7 @@ angular.module('Portfolio', ['LocalStorageModule'])
             for (var i = 0; i < $scope.projects.length; i++) {
                 if ($scope.projects[i].name === splits[1]) {
                     return {
-                        name: splits[1],
+                        name: $scope.replaceSymbolsWithSpaces(splits[1]),
                         objects: [],
                         description: $scope.projects[i].description,
                         github: true,
@@ -434,11 +435,13 @@ angular.module('Portfolio', ['LocalStorageModule'])
             //Loop over the repositories and add all the languages to an array.
             for (var i = 0; i < $scope.repositories.items.length; i++) {
                 var language = $scope.repositories.items[i].language;
-                var filter = {
-                    title: language,
-                    searchName: language.replace(' ', '-')
-                };
-                preFilters.push(filter);
+                if (language !== null) {
+                    var filter = {
+                        title: language,
+                        searchName: $scope.replaceSymbolsWithSpaces(language)
+                    };
+                    preFilters.push(filter);
+                }
             }
 
             var sortObjArray = function(arr, field) {
@@ -470,6 +473,11 @@ angular.module('Portfolio', ['LocalStorageModule'])
             $scope.selectedFilter = filter;
         };
 
+        $scope.replaceSymbolsWithSpaces = function (value) {
+            var regex = /[-|+]/g;
+            return value.replace(regex, ' ');
+        };
+
         $scope.getRepositories = function () {
             $http({
                 method: 'GET',
@@ -498,6 +506,10 @@ angular.module('Portfolio', ['LocalStorageModule'])
             );
         };
 
+        String.prototype.inquotes = function(){
+            return '"'+this.replace(/(^|[^\\])"/g,'$1\\"')+'"';
+        };
+
         $scope.getUser = function () {
             $http({
                 method: 'GET',
@@ -518,7 +530,7 @@ angular.module('Portfolio', ['LocalStorageModule'])
         $scope.getRepository = function (language) {
             if (language !== null) {
                 //Get the results from the cache.
-                if ($scope.cache[language] !== null) {
+                if ($scope.cache.length > 0) {
                     $scope.projects = $scope.cache[language];
                     $scope.repositoryCurrentCount = $scope.projects.length;
                     return true;
@@ -526,14 +538,14 @@ angular.module('Portfolio', ['LocalStorageModule'])
 
                 $http({
                     method: 'GET',
-                    url: 'https://api.github.com/search/repositories?q=language:' + language + '+user:acexintense'
+                    url: 'https://api.github.com/search/repositories?q=language:' + language.inquotes() + '+user:acexintense'
                 }).then(
                     function successCallback(response) {
                         // this callback will be called asynchronously
                         // when the response is available
                         $scope.projects = response.data['items'];
                         $scope.cache[language] = $scope.projects;
-                        $scope.repositoryCurrentCount = response.data.total_count;
+                        $scope.repositoryCurrentCount = response.data['total_count'];
 
                     }, function errorCallback(response) {
                         // called asynchronously if an error occurs
@@ -571,6 +583,10 @@ angular.module('Portfolio', ['LocalStorageModule'])
                 if (localStorageService.get('tabs') !== null) {
                     $scope.tabs = localStorageService.get('tabs');
                 }
+                if (localStorageService.get('selectedFilter') !== null) {
+                    $scope.selectedFilter = localStorageService.get('selectedFilter');
+                    $scope.getRepository($scope.selectedFilter);
+                }
             } else {
                 console.log('Local storage not supported!');
             }
@@ -580,12 +596,17 @@ angular.module('Portfolio', ['LocalStorageModule'])
             if(localStorageService.isSupported) {
                 localStorageService.set('selectedTab', $scope.selectedTab);
                 localStorageService.set('tabs', $scope.tabs);
+                localStorageService.set('selectedFilter', $scope.selectedFilter);
             } else {
                 console.log('Local storage not supported!');
             }
         };
 
         $scope.$watch('selectedTab', function(newValue, oldValue) {
+            $scope.saveInStorage();
+        });
+
+        $scope.$watch('selectedFilter', function(newValue, oldValue) {
             $scope.saveInStorage();
         });
 

@@ -153,7 +153,7 @@
                                 <div class="spacer col-sm-6 col-lg-4" ng-repeat="project in projects">
                                     <div class="card" id="p-{{project.name}}">
                                         <p class="language">{{project.language}}</p>
-                                        <h1>{{project.name}}</h1>
+                                        <h1>{{replaceSymbolsWithSpaces(project.name)}}</h1>
                                         <p>{{project.description}}</p>
                                         <a href="{{project.html_url}}">Github</a>
                                     </div>
