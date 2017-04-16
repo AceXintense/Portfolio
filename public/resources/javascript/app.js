@@ -1,5 +1,5 @@
-angular.module('Portfolio', [])
-    .controller('PortfolioController', function ($scope, $http, $location, $anchorScroll) {
+angular.module('Portfolio', ['LocalStorageModule'])
+    .controller('PortfolioController', function ($scope, $http, $location, $anchorScroll, localStorageService) {
 
         $scope.projects = [];
         $scope.repositories = {};
@@ -149,7 +149,7 @@ angular.module('Portfolio', [])
                 serviceName: 'LinkedIn',
                 name: 'Sam Grew',
                 websiteURL: 'https://www.linkedin.com/in/AceXintense'
-            },
+            }
         ];
 
         $(function(){
@@ -198,11 +198,6 @@ angular.module('Portfolio', [])
             EncodingType: 'url'
         };
 
-        String.prototype.replaceAll = function(search, replacement) {
-            var target = this;
-            return target.split(search).join(replacement);
-        };
-
         $scope.closePreviewer = function () {
             $scope.previewWindow = false;
         };
@@ -216,23 +211,20 @@ angular.module('Portfolio', [])
 
             for (var i = 0; i < objects.Contents.length; i++) {
 
-
-                if (objects.Contents[i].Key.split("/").length === 3 && objects.Contents[i].Key.split("/")[2] != '') {
+                if (objects.Contents[i].Key.split("/").length === 3 && objects.Contents[i].Key.split("/")[2] !== '') {
 
                     var splits = objects.Contents[i].Key.split("/");
                     var groups = function () {
                         var names = [];
-
                         for (var g = 0; g < $scope.galleries.length; g++) {
                             names.push($scope.galleries[g].name);
                         }
-
                         return names;
                     };
 
                     if (inArray(splits[1], groups())) { //If group found create gallery inside of the group.
                         for (var g = 0; g < $scope.galleries.length; g++) {
-                            if ($scope.galleries[g].name == splits[1]) {
+                            if ($scope.galleries[g].name === splits[1]) {
                                 var gallery = createGallery(baseURL, splits);
                                 $scope.galleries[g].objects.push(gallery);
                             }
@@ -244,6 +236,7 @@ angular.module('Portfolio', [])
                         $scope.galleries.push(galleryGroup);
                     }
                 }
+
             }
 
         };
@@ -251,7 +244,7 @@ angular.module('Portfolio', [])
         function inArray(needle, haystack) {
             var length = haystack.length;
             for(var i = 0; i < length; i++) {
-                if(haystack[i] == needle) return true;
+                if(haystack[i] === needle) return true;
             }
             return false;
         }
@@ -267,7 +260,7 @@ angular.module('Portfolio', [])
         function createGalleryGroup(splits) {
 
             for (var i = 0; i < $scope.projects.length; i++) {
-                if ($scope.projects[i].name == splits[1]) {
+                if ($scope.projects[i].name === splits[1]) {
                     return {
                         name: splits[1],
                         objects: [],
@@ -290,7 +283,7 @@ angular.module('Portfolio', [])
 
         $scope.scrollToId = function (id, tab) {
 
-            if (tab == undefined) {
+            if (tab === undefined) {
                 if ($scope.searchType === 'skills') {
                     $scope.selectTab(0);
                 } else if ($scope.searchType === 'projects') {
@@ -525,7 +518,7 @@ angular.module('Portfolio', [])
         $scope.getRepository = function (language) {
             if (language !== null) {
                 //Get the results from the cache.
-                if ($scope.cache[language] != null) {
+                if ($scope.cache[language] !== null) {
                     $scope.projects = $scope.cache[language];
                     $scope.repositoryCurrentCount = $scope.projects.length;
                     return true;
@@ -569,6 +562,30 @@ angular.module('Portfolio', [])
         $scope.getRepositories();
         $scope.getRepository(null);
         $scope.getUser();
+
+        $scope.loadStorage = function () {
+            if(localStorageService.isSupported) {
+                $scope.selectedTab = localStorageService.get('selectedTab');
+                $scope.tabs = localStorageService.get('tab');
+            } else {
+                console.log('Local storage not supported!');
+            }
+        };
+
+        $scope.saveInStorage = function () {
+            if(localStorageService.isSupported) {
+                localStorageService.set('selectedTab', $scope.selectedTab);
+                localStorageService.set('tab', $scope.tabs);
+            } else {
+                console.log('Local storage not supported!');
+            }
+        };
+
+        $scope.$watch('selectedTab', function(newValue, oldValue) {
+            $scope.saveInStorage();
+        });
+
+        $scope.loadStorage();
 
     });
 

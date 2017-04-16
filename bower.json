@@ -20,6 +20,7 @@
     "bootstrap": "v4.0.0-alpha.6",
     "typed.js": "^1.1.6",
     "font-awesome": "fontawesome#^4.7.0",
-    "aws-sdk": "aws-sdk-js#^2.27.0"
+    "aws-sdk": "aws-sdk-js#^2.27.0",
+    "angular-local-storage": "^0.5.2"
   }
 }
