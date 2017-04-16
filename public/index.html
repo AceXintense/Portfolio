@@ -170,7 +170,7 @@
 
                                 <div class="gallery-row" ng-repeat="item in galleries">
                                     <div class="gallery-description" id="g-{{item.name}}">
-                                        <h1>{{item.name}}</h1>
+                                        <h1>{{replaceSymbolsWithSpaces(item.name)}}</h1>
                                         <p>{{item.description}}</p>
                                         <a class="button" href="{{item.githubURL}}" ng-show="item.github" target="_blank" ng-cloak>View on Github</a>
                                     </div>
@@ -193,7 +193,7 @@
                             <div class="flex-first col-sm-4 hidden-down gallery-navigation">
                                 <h1>Jump to Gallery</h1>
                                 <button ng-repeat="item in galleries" ng-click="scrollToId('g-' + item.name, 2)">
-                                    {{item.name}}
+                                    {{replaceSymbolsWithSpaces(item.name)}}
                                 </button>
                             </div>
                         </div>

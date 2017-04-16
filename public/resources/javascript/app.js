@@ -263,7 +263,7 @@ angular.module('Portfolio', ['LocalStorageModule'])
             for (var i = 0; i < $scope.projects.length; i++) {
                 if ($scope.projects[i].name === splits[1]) {
                     return {
-                        name: $scope.replaceSymbolsWithSpaces(splits[1]),
+                        name: splits[1],
                         objects: [],
                         description: $scope.projects[i].description,
                         github: true,
