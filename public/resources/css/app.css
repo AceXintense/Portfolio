@@ -38,6 +38,7 @@
 
 * {
     font-family: 'Raleway', sans-serif;
+    outline: 0;
 }
 
 html,body{ margin:0; padding:0; height:100%; width:100%; }
@@ -624,4 +625,12 @@ button.selected {
         padding: 5px 0;
     }
 
+}
+
+select {
+    border: 1px solid black;
+}
+
+*:focus {
+    outline: 0 !important;
 }

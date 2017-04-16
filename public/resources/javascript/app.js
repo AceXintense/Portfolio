@@ -579,6 +579,17 @@ angular.module('Portfolio', ['LocalStorageModule'])
             if(localStorageService.isSupported) {
                 if (localStorageService.get('selectedTab') !== null) {
                     $scope.selectedTab = localStorageService.get('selectedTab');
+                    if ($scope.selectedTab === 2) {
+                        s3.listObjects(params, function (err, data) {
+
+                            if (err) {
+                                console.log(err, err.stack);
+                            } else {
+                                $scope.getGalleries(data);
+                            }
+
+                        });
+                    }
                 }
                 if (localStorageService.get('tabs') !== null) {
                     $scope.tabs = localStorageService.get('tabs');
