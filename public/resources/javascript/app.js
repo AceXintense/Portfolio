@@ -565,8 +565,12 @@ angular.module('Portfolio', ['LocalStorageModule'])
 
         $scope.loadStorage = function () {
             if(localStorageService.isSupported) {
-                $scope.selectedTab = localStorageService.get('selectedTab');
-                $scope.tabs = localStorageService.get('tab');
+                if (localStorageService.get('selectedTab') !== null) {
+                    $scope.selectedTab = localStorageService.get('selectedTab');
+                }
+                if (localStorageService.get('tabs') !== null) {
+                    $scope.tabs = localStorageService.get('tabs');
+                }
             } else {
                 console.log('Local storage not supported!');
             }
@@ -575,7 +579,7 @@ angular.module('Portfolio', ['LocalStorageModule'])
         $scope.saveInStorage = function () {
             if(localStorageService.isSupported) {
                 localStorageService.set('selectedTab', $scope.selectedTab);
-                localStorageService.set('tab', $scope.tabs);
+                localStorageService.set('tabs', $scope.tabs);
             } else {
                 console.log('Local storage not supported!');
             }
