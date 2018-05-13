@@ -51,32 +51,32 @@ angular.module('Portfolio', ['LocalStorageModule'])
         $scope.skills = [
             {
                 language: 'PHP',
-                experience: '1.5 Year\'s',
-                value: 50,
+                experience: '2.5 Year\'s',
+                value: 70,
                 id: 'php'
             },
             {
                 language: 'HTML',
-                experience: '4 Year\'s',
-                value: 90,
+                experience: '5 Year\'s',
+                value: 100,
                 id: 'html'
             },
             {
                 language: 'CSS',
-                experience: '2 Year\'s',
-                value: 80,
+                experience: '4 Year\'s',
+                value: 100,
                 id: 'css'
             },
             {
                 language: 'Javascript',
-                experience: '2 Year\'s',
-                value: 80,
+                experience: '3 Year\'s',
+                value: 90,
                 id: 'javascript'
             },
             {
-                language: 'Angular',
-                experience: '1 Month',
-                value: 5,
+                language: 'Angular JS',
+                experience: '2 Year\'s',
+                value: 100,
                 id: 'angular'
             },
             {
@@ -88,7 +88,7 @@ angular.module('Portfolio', ['LocalStorageModule'])
             {
                 language: 'Git',
                 experience: '2 Year\'s',
-                value: 60,
+                value: 80,
                 id: 'git'
             },
             {
@@ -129,7 +129,7 @@ angular.module('Portfolio', ['LocalStorageModule'])
             },
             {
                 language: 'Postgres SQL',
-                experience: '1 Year\'s',
+                experience: '2 Year\'s',
                 value: 25,
                 id: 'postgres_sql'
             }
